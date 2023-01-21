@@ -16,7 +16,7 @@ router.get('/info', collectionController.collectionInfo)
 /* Protected */
 router.use(verifyToken)
 router.post('/', hasRequiredValues, isDuplicate, collectionController.addMovie)
-router.put('/:id', isDuplicate,collectionController.updateMovie)
+router.put('/:id', collectionController.updateMovie)
 router.delete('/:id', collectionController.removeMovie)
 router.get('/movie/:id', collectionController.getMovieById)
 
