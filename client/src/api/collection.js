@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const collectionAPI = axios.create({
-  baseURL: 'http://localhost:5000/api/collection',
+  baseURL: '/api/collection',
 })
 
 export const getMovies = async (page = 1, limit = 10, sort = 'recent') => {
