@@ -24,8 +24,8 @@ const ManageCollection = () => {
   })
   
   const { isLoading, isError, error, data } = useQuery(
-    ['collection', page],
-    () => getMovies(page, 25),
+    ['manage', page],
+    () => getMovies(page, 25, 'alphabetically'),
     {
       keepPreviousData: true,
     }
