@@ -7,6 +7,9 @@ import cookieParser from "cookie-parser";
 
 dotenv.config();
 
+import api from "./api";
+import * as middlewares from "./api/middlewares";
+
 const app = express();
 
 // Frontend
@@ -26,6 +29,11 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
+
+app.use("/api/v1", api);
+
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 // app.all('*', (_req, res) => {
 //   res.sendFile(join(__dirname, '../../client/dist/index.html'))
