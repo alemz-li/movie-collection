@@ -1,5 +1,7 @@
 import { Router } from "express";
-import * as collectionController from "../controllers/collection.controller.js";
+import * as collectionController from "../controllers/collection.controller";
+import { validateRequest } from "../middlewares";
+import { createMovieSchema } from "../schemas/collection.schema";
 
 const router = Router();
 
@@ -11,7 +13,13 @@ router.get("/info", collectionController.collectionInfoHandler);
 
 /* Protected */
 // # TODO: Protecte routes with access and refresh tokens
-router.post("/", collectionController.addMovieHandler);
+router.post(
+  "/",
+  validateRequest({
+    body: createMovieSchema,
+  }),
+  collectionController.addMovieHandler,
+);
 router.put("/:id", collectionController.updateMovieHandler);
 router.delete("/:id", collectionController.deleteMovieHandler);
 
