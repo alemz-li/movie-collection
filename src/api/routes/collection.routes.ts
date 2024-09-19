@@ -7,9 +7,9 @@ const router = Router();
 
 /* Public */
 router.get("/", collectionController.getMovieHandler);
-router.get("/:id", collectionController.getMovieByIdHandler);
 router.get("/recent", collectionController.recentlyAddedHandler);
 router.get("/info", collectionController.collectionInfoHandler);
+router.get("/:id", collectionController.getMovieByIdHandler);
 
 /* Protected */
 // # TODO: Protecte routes with access and refresh tokens
