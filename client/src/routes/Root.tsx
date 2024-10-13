@@ -4,7 +4,7 @@ export default function Root() {
   return (
     <>
       <nav>Collection</nav>
-      <main>
+      <main className="max-w-5xl">
         <Outlet />
       </main>
     </>
