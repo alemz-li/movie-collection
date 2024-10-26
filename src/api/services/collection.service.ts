@@ -12,19 +12,23 @@ export const addMovie = async (movie: CreateMovieInput) => {
   return await Movie.create(movie);
 };
 
-export const getMovies = async () => {
-  /*
-    const movies = await Movie.find(query)
-      .limit(limit)
-      .skip(startIndex)
-      .select("-createdAt -updatedAt")
-      .sort(sort === "alphabetically" ? { title: 1 } : { createdAt: -1 })
-      .exec();
+export const getMovies = async ({
+  limit,
+  sort,
+  startIndex,
+}: {
+  limit: number;
+  sort: "recent" | "alphabetical";
+  startIndex: number;
+}) => {
+  const movies = await Movie.find()
+    .limit(limit)
+    .skip(startIndex)
+    .select("-createdAt -updatedAt")
+    .sort(sort === "alphabetical" ? { title: 1 } : { createdAt: -1 })
+    .exec();
 
-    const totalPages = Math.ceil(movies.length / limit);
-  */
-
-  return await Movie.find();
+  return movies;
 };
 
 export const getMovieById = async (id: string) => {

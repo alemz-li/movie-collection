@@ -1,35 +1,40 @@
 import { NextFunction, Request, Response } from "express";
 import * as movieCollectionService from "../services/collection.service";
+import { CollectionQuerySchemaType } from "../schemas/collection.schema";
 
 export const getMovieHandler = async (
-  req: Request,
+  req: Request<
+    Record<string, never>,
+    Record<string, never>,
+    Record<string, never>,
+    CollectionQuerySchemaType
+  >,
   res: Response,
   next: NextFunction,
 ) => {
-  /*
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
-  const sort = req.query.sort || "recent";
+  const page = parseInt(req.query.page!) || 1;
+  const limit = parseInt(req.query.limit!) || 10;
+  const sort = req.query.sort || "alphabetical";
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-  const query = req.query;
-  */
 
   try {
-    const movies = await movieCollectionService.getMovies();
+    const movies = await movieCollectionService.getMovies({
+      limit,
+      sort,
+      startIndex,
+    });
 
     res.send(movies);
-    /*
     res.json({
       results: movies,
       info: {
-        pages: totalPages,
+        pages: movies.totalPages,
         hasNextPage: endIndex < movies.length,
         hasPreviousPage: startIndex > 0,
         limit,
       },
     });
-    */
   } catch (error) {
     console.log(error);
     next(error);

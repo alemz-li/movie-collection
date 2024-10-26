@@ -1,3 +1,4 @@
+import { CreateMovieSchemaType } from "../../schemas/movieSchema";
 import { type CollectionInfo, type Movie } from "../../types/collection";
 import axios from "./axios";
 
@@ -15,20 +16,21 @@ export const getCollectionInfo = async () => {
 };
 
 export const getRecent = async () => {
-  const { data } = await axios.get("/recent");
+  const { data } = await axios.get("/collection/recent");
 
   return data;
 };
 
-export const addMovie = async (movie) => {
-  const { data } = await axios.post("/", movie, {
+export const addMovie = async (movie: CreateMovieSchemaType) => {
+  const { data } = await axios.post<Movie>("/collection", movie, {
     headers: { "Content-Type": "application/json" },
-    withCredentials: true,
+    // withCredentials: true,
   });
 
   return data;
 };
 
+/*
 export const updateMovie = async (movieObj) => {
   const { movie_id: movieId, movie } = movieObj;
   const { data } = await axios.put(`/${movieId}`, movie, {
@@ -51,3 +53,4 @@ export const getMovieById = async (movieId: string) => {
   });
   return data;
 };
+*/

@@ -15,5 +15,12 @@ export const patchMovieSchema = z.object({
   watched: z.boolean().optional(),
 });
 
+export const collectionQuerySchema = z.object({
+  page: z.string().optional(),
+  limit: z.string().optional().default("10"),
+  sort: z.enum(["recent", "alphabetical"]).default("alphabetical").optional(),
+});
+
 export type CreateMovieInput = z.infer<typeof createMovieSchema>;
 export type PatchMovieInput = z.infer<typeof patchMovieSchema>;
+export type CollectionQuerySchemaType = z.infer<typeof collectionQuerySchema>;

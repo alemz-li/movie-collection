@@ -1,12 +1,21 @@
 import { Router } from "express";
 import * as collectionController from "../controllers/collection.controller";
 import { validateRequest } from "../middlewares";
-import { createMovieSchema } from "../schemas/collection.schema";
+import {
+  collectionQuerySchema,
+  createMovieSchema,
+} from "../schemas/collection.schema";
 
 const router = Router();
 
 /* Public */
-router.get("/", collectionController.getMovieHandler);
+router.get(
+  "/",
+  validateRequest({
+    query: collectionQuerySchema,
+  }),
+  collectionController.getMovieHandler,
+);
 router.get("/recent", collectionController.recentlyAddedHandler);
 router.get("/info", collectionController.collectionInfoHandler);
 router.get("/:id", collectionController.getMovieByIdHandler);
